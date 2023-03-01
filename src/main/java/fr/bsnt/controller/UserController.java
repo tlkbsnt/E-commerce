@@ -1,0 +1,40 @@
+package fr.bsnt.controller;
+
+import fr.bsnt.model.Users;
+import fr.bsnt.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+    public List<Users> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public Users getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+    @PostMapping
+    public Users createUser(@RequestBody Users users) {
+        return userService.createUser(users);
+    }
+
+    @PutMapping("/update/{id}")
+    public Users updateUser(@PathVariable Long id, @RequestBody Users users) {
+        return userService.updateUser(id, users);
+    }
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+}
